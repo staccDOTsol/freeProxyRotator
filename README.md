@@ -6,7 +6,7 @@
 2. Change this text: /home/jarettrsdunn/testnet-inter-exchange-volume-sma-crosses-trader-on-bitmex-/ to your webserver root wWW directory (usually /var/www/html on Linux).
 2. node proxies.js - this cannot be run as root. It also needs access to your webserver or a directory on it.
 3. Wait a little while, until there's output from the node file into terminal.
-4. DuckDuckGo search how to load a .PAC file into your favorite browser to rotate your proxies for you according to PAC rules.
+4. DuckDuckGo search how to load a .PAC file into your favorite browser to rotate your proxies for you according to PAC rules. Otherwise, watch the video! I go over how to configure it in Chrome/Brave without need for an extension.
 5. Your PAC address is (ipOrDomainOrLocalhost)/proxies.PAC.
 6. So long as the node app is running, your free proxies will update in realtime. It'll keep testing them to see which are working, and should (for the most part) work to secure your browsing via SOCKS4/SOCKS5.
 
