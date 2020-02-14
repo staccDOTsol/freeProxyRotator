@@ -5,7 +5,7 @@ Hi! If you're not here from LBRY, you should get on LBRY! Sign up here: https://
 ## Use
 
 1. npm i proxy-lists request-promise socks-proxy-agent
-2. Change this text: /home/jarettrsdunn/testnet-inter-exchange-volume-sma-crosses-trader-on-bitmex-/ to your webserver root wWW directory (usually /var/www/html on Linux).
+2. Change this text: /home/jarettrsdunn/testnet-inter-exchange-volume-sma-crosses-trader-on-bitmex-/ to your webserver root WWW directory (usually /var/www/html on Linux).
 2. node proxies.js - this cannot be run as root. It also needs access to your webserver or a directory on it.
 3. Wait a little while, until there's output from the node file into terminal.
 4. DuckDuckGo search how to load a .PAC file into your favorite browser to rotate your proxies for you according to PAC rules. Otherwise, watch the video! I go over how to configure it in Chrome/Brave without need for an extension.
@@ -28,4 +28,5 @@ http://jare.cloud/proxies/proxies.PAC
 1. sudo mkdir /var/www/html/proxies
 2. sudo chmod 777 /var/www/html/proxies 
 3. change the path at the bottom of the proxies.js to /var/www/html/proxies/proxies.PAC
+4. your PAC now lives on (ipOrDomainOrLocalhost)/proxies/proxies.PAC.
 
