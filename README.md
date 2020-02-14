@@ -1,6 +1,6 @@
 # freeProxyRotator
 
-Hi! If you're not here from LBRY, you should get on LBRY! Sign up here: https://lbry.tv/$/invite/@real_jare:5 see video of me detailing how to write this app from start to finish here: https://lbry.tv/@real_jare:5/Free_Proxy_Rotator:2
+Hi! If you're not here from LBRY, you should get on LBRY! Sign up here: https://lbry.tv/$/invite/@real_jare:5 see video of me detailing how to write this app from start to finish here: https://lbry.tv/Free_Proxy_Rotator
 
 ## Use
 
