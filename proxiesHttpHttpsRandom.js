@@ -2,6 +2,7 @@ var ProxyLists = require('proxy-lists');
 var rp = require('request-promise');
 var fs = require('fs')
 var SocksProxyAgent = require('socks-proxy-agent');
+var HttpsProxyAgent = require('https-proxy-agent');
 
 
 var finalProxies = []
@@ -11,8 +12,14 @@ function getProxies(){
 
 var options = {
     countries: ['us', 'ca'],
-    protocols: ['socks', 'socks4'],
-    sourcesWhiteList: ['hidemyname', 'proxylists-net', 'sockslist'] 
+    protocols: ['http', 'https'],
+    sourcesWhiteList: [
+  'freeproxylist',
+  'proxy-list-org',
+  'proxydb',
+  'proxyhttp-net',
+  'hidemyname'
+] 
 
 };
 
@@ -40,22 +47,21 @@ gettingProxies.once('end', function() {
 	console.log('done')
 	tempProxies = initialProxies
 	initialProxies = []
+		console.log(tempProxies.length)	
+
 	for (var p in tempProxies){
 		var proxy = tempProxies[p]
-		var agent = new SocksProxyAgent(proxy);
+		var agent = new HttpsProxyAgent(proxy);
 
 		var options = {
 			timeout: 3000,
 		    uri: 'https://api.ipify.org?format=json',
-		    agent: agent,
 		    headers: {
 		        'User-Agent': 'Request-Promise'
-		    }
+		    },
+			agent:agent
 		}
-
 	testProxy(options, tempProxies.length, proxy, 0)
-
-
 	}
     setTimeout(function(){
     	getProxies()
@@ -66,15 +72,15 @@ gettingProxies.once('end', function() {
 function testProxy(options, l, proxy, count){
 setTimeout(async function(){
 	try {
-
 	    var response = await rp(options)
 	    if (JSON.parse(response).ip == proxy.split('://')[1].split(':')[0]){
 		
 		count++
+		console.log(count)
 		if (count <= 3){
 		setTimeout(function(){
 		return testProxy(options, l, proxy, count)
-	}, 1000)
+	}, 500)
 	} 
 	
 	else if (count > 3){
@@ -93,17 +99,35 @@ setTimeout(async function(){
 	    //console.log(err.message)
 	}
 
-}, Math.random * l * 3000)
+}, Math.random * l * 1000)
 }
 getProxies()
 
-setInterval(function(){
-	var text = 'function FindProxyForURL(url, host) {\n\nproxy = "' 
-		for (var p in finalProxies){
-			text+= 'SOCKS5 ' + finalProxies[p].split('://')[1] + '; SOCKS ' + finalProxies[p].split('://')[1] + '; SOCKS4 ' + finalProxies[p].split('://')[1] + ';'
-		}
+/*
+var hosts = ""; // HTTP proxies go here, in the format host:port separated by a single space.
 
-   		text+='"\n\nreturn proxy;\n\n}'
+function FindProxyForURL(url, host)
+{
+    var hostsArray = hosts.split(" ");
+    var randomIndex = Math.floor((Math.random() * hostsArray.length));
+    return "PROXY " + hostsArray[randomIndex] + "; DIRECT"; // DIRECT makes the browser use no proxy if the chosen proxy doesn't work
+}
+
+*/
+
+setInterval(function(){
+	
+	var text = 'var hosts="' 
+	for (var p in finalProxies){
+		text+= finalProxies[p].split('://')[1] + " "
+	}
+	text += '"\nfunction FindProxyForURL(url, host){'
+
+    text += '\nvar hostsArray = hosts.split(" ");'
+    text+= '\nvar randomIndex = Math.floor((Math.random() * hostsArray.length));'
+    text+= '\nreturn "PROXY " + hostsArray[randomIndex] + ";" }' // DIRECT makes the browser use no proxy if the chosen proxy doesn't work
+
+
    		fs.writeFileSync('C:\\freeProxyRotator\\proxies.PAC',text,{encoding:'utf8',flag:'w'})
 
    	}, 15000)
