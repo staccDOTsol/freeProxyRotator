@@ -1,3 +1,4 @@
+If you found this repo useful, consider clicking the sponsor button near the top :) Sponsoring via GitHub is as little as $1/month and if you do not use banks or credit cards, there are crypto links included :)<br /><br />
 # freeProxyRotator
 
 Hi! If you're not here from LBRY, you should get on LBRY! Sign up here: https://lbry.tv/$/invite/@real_jare:5 see video of me detailing how to write this app from start to finish here: https://lbry.tv/Free_Proxy_Rotator
